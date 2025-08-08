@@ -28,4 +28,9 @@ resource "aws_subnet" "pubsubnet" {
 
 resource "aws_s3_bucket" "bucket" {
   bucket = aws_s3_bucket.bucket.id
+  tags = {
+      ENvironment = "Prod"
+    CreatedBy = "Mr-Tita"
+    OwnedBy = "Mr-Tita"
+  }
 }
