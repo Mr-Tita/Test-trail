@@ -15,3 +15,13 @@ resource "aws_vpc" "myvpc" {
     OwnedBy = "Mr-Tita"
     }
 }
+
+resource "aws_subnet" "pubsubnet" {
+  cidr_block = var.pubsubnet
+  vpc_id = aws_vpc.myvpc.id
+  tags = {
+    ENvironment = "Prod"
+    CreatedBy = "Mr-Tita"
+    OwnedBy = "Mr-Tita"
+  }
+}
