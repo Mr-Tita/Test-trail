@@ -24,4 +24,5 @@ resource "aws_subnet" "pubsubnet" {
     CreatedBy = "Mr-Tita"
     OwnedBy = "Mr-Tita"
   }
+
 }
