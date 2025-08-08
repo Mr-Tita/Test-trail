@@ -32,5 +32,6 @@ resource "aws_s3_bucket" "bucket" {
       ENvironment = "Prod"
     CreatedBy = "Mr-Tita"
     OwnedBy = "Mr-Tita"
+    Sensitivity = "True"
   }
 }
