@@ -1,0 +1,37 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    name: Deploy Resources
+    runs-on: ubuntu-latest
+
+    # Add manual approval before deploy
+    environment:
+      name: production
+      url: https://aws.amazon.com
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Deploy resources to AWS
+        run: |
+          echo "Deploying resources..."
+          aws cloudformation deploy \
+            --template-file template.yml \
+            --stack-name my-stack \
+            --capabilities CAPABILITY_IAM
