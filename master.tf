@@ -24,8 +24,5 @@ resource "aws_subnet" "pubsubnet" {
     CreatedBy = "Mr-Tita"
     OwnedBy = "Mr-Tita"
   }
-}
 
-resource "aws_s3_bucket" "bucket" {
-  bucket = aws_s3_bucket.bucket.id
 }
