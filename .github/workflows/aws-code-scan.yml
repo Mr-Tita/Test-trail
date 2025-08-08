@@ -1,4 +1,4 @@
-name: Deploy to AWS
+name: Deploy to AWS (Terraform)
 
 on:
   push:
@@ -6,19 +6,9 @@ on:
 
 jobs:
   deploy:
-    name: Deploy Resources
     runs-on: ubuntu-latest
-
-    # Add manual approval before deploy
-    environment:
-      name: production
-      url: https://aws.amazon.com
-    permissions:
-      contents: read
-      id-token: write
-
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Configure AWS credentials
@@ -28,10 +18,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Deploy resources to AWS
-        run: |
-          echo "Deploying resources..."
-          aws cloudformation deploy \
-            --template-file template.yml \
-            --stack-name my-stack \
-            --capabilities CAPABILITY_IAM
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Initialize Terraform
+        run: terraform init
+
+      - name: Apply Terraform
+        run: terraform apply -auto-approve
